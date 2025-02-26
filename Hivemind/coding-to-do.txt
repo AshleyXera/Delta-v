@@ -1,0 +1,105 @@
+figure out how to not lose the files im working on once theyre properly sorted into this mess of a filetree
+    -figure out basic entity structures
+
+potential balance/meta concerns
+    -Indoctrinate ability
+        -sec finds out theres a Hive aboard and simply mindshields everyone to prevent its growth
+        -need to figure if target consent matters (eg. maybe reduce cooldown? bypass mindshield?)
+
+Create .ftl messages file (to maintain localizability)
+
+write up in-game guides for each role
+
+created hiveminded component
+    -access to general telepath chat
+    -access to hivemind intra-chat
+    -icon only visible to other hiveminded characters to recognize each other
+        -like sechud/adminhud icons
+|
+faction component? example dragged from Resources/Prototypes/Entities/Objects/Weapons/Guns/turrets.yml
+- type: entity
+  parent: [BaseWeaponTurret, BaseSyndicateContraband]
+  id: WeaponTurretSyndicate
+  suffix: Syndicate
+  components:                   <--
+    - type: NpcFactionMember    <--
+      factions:                 <--
+        - Syndicate             <--
+
+
+Create Hivemind Over Voice role
+    -roundstart role, 1 exists
+    -hiveminded
+    -gain psionic powers based on current Glimmer
+    -gain psionic powers based on Monuments constructed
+    -once 4 monuments are built, may manifest an Incarnate Avatar
+        -Overmind player transfers into Avatar, this is the wincon
+
+Create Incarnate Avatar
+    -cannot be killed
+    -powerful
+    -  ^-^
+    -different set of powers; does not directly inherit the psionic abilities the Over Voice had before
+    -create sprite
+
+Create Hivenind Queen role
+    -roundstart role, 2 exist
+    -hiveminded
+    -cannot be Mindbroken
+        -too fundamentally connected to the Noosphere to be chemically severed from it
+    -have Indoctrinate psionic ability
+        -long cooldown, length TBD
+        -short range, TBD
+        -converts target entity into a Drone
+
+    -Queens may change their power at monuments as drones do
+
+Create Hivemind Drone role
+    -roundstart role, 1 exists, more added later
+    -hiveminded
+    -roundstart Drone must have Create Foundation ability
+        -the Monument needs to be built like other buildings, but shouldnt just be available in Everyone's build menu.
+        -Create foundation
+    -converted drones, on conversion, may chose one of the psionic abilities currently unlocked by # of monuments present
+    -any drone may use a monument to re-select their psionic ability from those available, losing their current one
+    -if Mindbroken, becomes Outcast
+
+Create Hivemind Outcast role
+    -no longer hiveminded
+    -can be re-converted into Lesser Drone
+
+Create Hivemind Lesser Drone role
+    -hiveminded
+    -regains access to hive and general telepath coms, but cannot be not otherwise psionic
+
+Create Hivemind monument building
+    -started by Create Foundation
+    -generate research points
+    -increase Glimmer
+    -attract Noospheric entities.
+    -lets Queens and Drones change their psionic ability
+
+
+Resources/Prototypes/Roles/Antags/hivemind.yml
+    create each role, with their unique guides and requirements
+
+    //example:
+    - type: antag
+    id: [___]
+    name: roles-antag-[___]-name #.ftl resolvable string
+    antagonist: true
+    setPreference: true #can decide whether you will be picked for role at round start
+    objective: roles-antag-[___]-objective
+    requirements:
+    - !type:OverallPlaytimeRequirement # DeltaV - Playtime requirement
+        time: # overall playtime in minutes
+    - !type:DepartmentTimeRequirement # DeltaV - engi dept time requirement
+        department: Engineering
+        time: 7200 # DeltaV - 2 hours
+    - !type:RoleTimeRequirement # DeltaV - salvage time requirement
+        role: JobSalvageSpecialist
+        time: 7200 # DeltaV - 2 hours
+    // also add minimum player requirement
+    guides: [ ___ ]
+
+Add roles to mindroles?
